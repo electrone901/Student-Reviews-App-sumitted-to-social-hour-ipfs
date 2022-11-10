@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react'
-import { Link, useHistory } from 'react-router-dom'
+import { Link, useHistory, useParams } from 'react-router-dom'
 import {
   Container,
   Button,
@@ -8,6 +8,7 @@ import {
   TextField,
   MenuItem,
 } from '@material-ui/core'
+import LinearProgress from '@material-ui/core/LinearProgress'
 import './CreateProfile.css'
 import { apiKey } from '../../APIKEYS'
 import Rectangle from '../../images/Rectangle 77.png'
@@ -32,7 +33,6 @@ function PostComment({
   contract,
   wallet,
 }) {
-  console.log('🚀 ~ file: PostComment.js ~ line 35 ~ contract', contract)
   const history = useHistory()
   const [quality, setQuality] = useState('')
   const [dificulty, setDificulty] = useState('')
@@ -40,7 +40,9 @@ function PostComment({
   const [rating, setRating] = useState('')
   const [comment, setComment] = useState('')
   const [tags, setTags] = useState('')
+  const [creatingReview, setCreatingReview] = useState(false)
   const type = useRef()
+  const { classId } = useParams()
 
   const getDay = async () => {
     let d = new Date()
@@ -52,6 +54,8 @@ function PostComment({
 
   const addNewComment = async () => {
     if (!wallet) alert('Please connect your wallet!')
+
+    setCreatingReview(true)
     try {
       const creationDate = await getDay()
       const obj = {
@@ -66,7 +70,6 @@ function PostComment({
         tags: tags ? tags : 'Caring,Participation Matters,Caring,helpful',
         author: wallet,
       }
-      const postId = 0
 
       const client = new NFTStorage({ token: apiKey })
       const metadata = await client.store({
@@ -80,8 +83,9 @@ function PostComment({
         const url = metadata?.url.substring(7)
         const fullUrl = `https://cloudflare-ipfs.com/ipfs/${url}`
 
-        const saveToContract = await contract.createReview(fullUrl, postId)
+        const saveToContract = await contract.createReview(fullUrl, classId)
         const tx = await saveToContract.wait()
+        setCreatingReview(false)
         history.push('/classes')
       }
     } catch (error) {
@@ -150,7 +154,6 @@ function PostComment({
             <p style={{ textAlign: 'right', fontSize: '11px' }}>
               <label htmlFor="w3review">0/300</label>
             </p>
-            <br />
             {/*quality*/}
             <p>
               <label htmlFor="fname">Quality</label>
@@ -232,6 +235,15 @@ function PostComment({
             <br />
             <br />
             <center>
+              {wallet && creatingReview ? (
+                <div style={{ paddingTop: '2rem', paddingBottom: '2.5rem' }}>
+                  <LinearProgress />
+                  <p>Creating your review...</p>
+                </div>
+              ) : (
+                ''
+              )}
+
               <Button
                 className="nevermind-btn"
                 variant="contained"

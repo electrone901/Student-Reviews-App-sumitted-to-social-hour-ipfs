@@ -182,7 +182,7 @@ function App() {
             />
           </Route>
 
-          <Route path="/post-comment">
+          <Route path="/post-comment/:classId">
             <PostComment
               setCoverPhoto={setCoverPhoto}
               setImage={setImage}
@@ -225,7 +225,7 @@ function App() {
             />
           </Route>
 
-          <Route path="/profile/details/:userAddress">
+          <Route path="/profile/details/:classId">
             <Profile selectedProfile={selectedProfile} wallet={wallet} />
           </Route>
           <Route path="/my-profile">

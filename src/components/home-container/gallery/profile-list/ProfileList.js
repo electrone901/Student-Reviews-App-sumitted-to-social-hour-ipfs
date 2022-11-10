@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import './ProfileList.css'
 import {
@@ -13,8 +13,10 @@ import {
 
 import CircularStatic from '../../../commons/CircularProgressWithLabel'
 
-function ProfileList({ account, contractData, setSelectedProfile, data }) {
+function ProfileList({ account, contract, setSelectedProfile }) {
   const [loading, setLoading] = useState(false)
+  const [data, setData] = useState(false)
+  console.log('** data', data)
   const history = useHistory()
   const [profiles, setProfiles] = useState([
     {
@@ -104,19 +106,81 @@ function ProfileList({ account, contractData, setSelectedProfile, data }) {
     },
   ])
 
+  useEffect(() => {
+    if (contract) {
+      getAllClasses()
+    }
+  }, [contract])
+
+  const getImage = (ipfsURL) => {
+    if (!ipfsURL) return
+    ipfsURL = ipfsURL.split('://')
+    return 'https://ipfs.io/ipfs/' + ipfsURL[1]
+  }
+
+  const getAllClasses = async () => {
+    const temp = []
+    const res = await contract.getAllGroups()
+
+    for (let i = 0; i < res.length; i++) {
+      let obj = {}
+      const organizer = res[i][4]
+      const reviews = res[i].reviews
+      const totalDonations = res[i]['totalDonations'].toString()
+      const fundraiserId = res[i].id.toString()
+      const nftStorageURL = res[i][1]
+
+      const ipfs_cid = nftStorageURL.substring(33, 92)
+      let getNFTStorageData = await fetch(nftStorageURL)
+      let post = await getNFTStorageData.json()
+      const data = JSON.parse(post.description)
+      obj.fundraiserId = fundraiserId
+      obj.organizer = organizer
+      obj.totalDonations = totalDonations
+      obj.classDificulty = data.classDificulty
+      obj.className = data.className
+      obj.image = data.image
+      obj.created = data.created
+      obj.department = data.department
+      obj.instructorName = data.instructorName
+      obj.position = data.position
+      obj.cid = ipfs_cid
+      obj.rating = [
+        { label: 'Awesome 5', rate: 95 },
+        { label: 'Great 4', rate: 10 },
+        { label: 'Good 3', rate: 5 },
+        { label: 'Ok 2', rate: 0 },
+        { label: 'Awful 1', rate: 0 },
+      ]
+      obj.reviews = reviews
+      obj.quality = data.quality
+      obj.targetAmmount = data.targetAmmount
+      temp.push(obj)
+    }
+
+    setData(temp)
+  }
+
   const details = (profile) => {
     console.log('click details', profile)
     localStorage.removeItem('selectedProfile')
     localStorage.setItem('selectedProfile', profile)
     setSelectedProfile(profile)
-    history.push(`/profile/details/${profile.fundraiserId}`)
+    history.push(`/profile/details/${profile.cid}`)
   }
 
   return (
     <div style={{ minHeight: '60vh', borderRadius: '24px' }}>
-      {loading ? (
-        <CircularStatic />
+      {contract ? (
+        ''
       ) : (
+        <center>
+          {' '}
+          <h2>Please log in to continue...</h2>
+        </center>
+      )}
+
+      {contract && !loading ? (
         <div>
           <Grid container spacing={24}>
             {data.length ? (
@@ -161,6 +225,8 @@ function ProfileList({ account, contractData, setSelectedProfile, data }) {
             )}
           </Grid>
         </div>
+      ) : (
+        ''
       )}
     </div>
   )

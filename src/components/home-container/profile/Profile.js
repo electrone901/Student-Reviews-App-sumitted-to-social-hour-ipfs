@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import { useParams, useHistory } from 'react-router'
+import { Link, useParams } from 'react-router-dom'
+import { useHistory } from 'react-router'
 import { Container, Box, Grid, Button, Chip, Card } from '@mui/material'
 import TaskAltIcon from '@mui/icons-material/TaskAlt'
 import LinearProgress from '@mui/material/LinearProgress'
@@ -41,12 +41,15 @@ function Profile({
   selectedProfile,
   setDonateNfts,
   setDonateStream,
-  wallet
+  wallet,
 }) {
   const history = useHistory()
   const [section, setSection] = useState('StudentRatings')
   const [reviews, setReviews] = useState([])
   const [open, setOpen] = useState(false)
+  const { classId } = useParams()
+  console.log('what cid', classId)
+
   const [selectedMaterial, setSelectedMaterial] = useState('')
   const [allNotes, setAllNotes] = useState([])
   const [notes, setNotes] = useState([
@@ -100,7 +103,6 @@ function Profile({
           },
         })
         cids = await cids.json()
-        console.log('🚀  cids', cids)
 
         const temp = []
         for (let cid of cids.value) {
@@ -133,7 +135,6 @@ function Profile({
     getAllClassMaterials()
   }, [])
 
-
   const getAllReviews = async () => {
     try {
       const temp = []
@@ -154,7 +155,7 @@ function Profile({
   }
 
   const goToDashboard = () => {
-    history.push('/')
+    history.push('/classes')
   }
 
   useEffect(() => {
@@ -300,7 +301,7 @@ function Profile({
                 color: 'white',
               }}
               component={Link}
-              to="/post-comment"
+              to={`/post-comment/${selectedProfile.fundraiserId}`}
             >
               Rate this class
             </Button>
@@ -404,6 +405,7 @@ function Profile({
                 padding: '2rem',
                 backgroundColor: 'rgba(241, 241, 241, 0.4)',
               }}
+              key={index}
             >
               <div
                 style={{
@@ -516,6 +518,8 @@ function Profile({
               </div>
             </Card>
           ))}
+
+        {reviews && reviews.length === 0 ? 'No Reviews Yet...' : ''}
 
         <br />
         <br />

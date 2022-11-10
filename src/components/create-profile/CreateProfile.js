@@ -12,7 +12,7 @@ import './CreateProfile.css'
 import { apiKey } from '../../APIKEYS'
 import Rectangle from '../../images/Rectangle 77.png'
 import placeholder from '../../images/upload.jpg'
-
+import LinearProgress from '@material-ui/core/LinearProgress'
 import { NFTStorage, File } from 'nft.storage'
 import axios from 'axios'
 
@@ -34,6 +34,7 @@ function CreateProfile({
   const [targetAmmount, setTargetAmmount] = useState('')
   const [imageName, setImageName] = useState('')
   const [imageType, setImageType] = useState('')
+  const [creatingClass, setCreatingClass] = useState(false)
   const type = useRef()
 
   const getDay = async () => {
@@ -45,7 +46,9 @@ function CreateProfile({
   }
 
   const postNewClass = async () => {
+    if (!contract) alert('Please connect your wallet!')
     try {
+      setCreatingClass(true)
       const creationDate = await getDay()
       const obj = {
         image: image
@@ -91,6 +94,7 @@ function CreateProfile({
         const saveToContract = await contract.createClass(fullUrl, '1000')
         const tx = await saveToContract.wait()
         console.log('tx', tx)
+        setCreatingClass(false)
         history.push('/classes')
       }
     } catch (error) {
@@ -309,6 +313,14 @@ function CreateProfile({
             <br />
             <br />
             <center>
+            {contract && creatingClass ? (
+                <div style={{ paddingTop: '2rem', paddingBottom: '2.5rem' }}>
+                  <LinearProgress />
+                  <p>Creating your post...</p>
+                </div>
+              ) : (
+                ''
+              )}
               <Button
                 className="nevermind-btn"
                 variant="contained"

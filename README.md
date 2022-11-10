@@ -68,7 +68,7 @@ Example links:
 https://github.com/marcialarturo/Student-Reviews-App<br/><br/>
 
 # Live Demo
-
+### It is responsive website, for best view use a large monitor
 https://student-reviews.netlify.app/#/
 
 # Video Link

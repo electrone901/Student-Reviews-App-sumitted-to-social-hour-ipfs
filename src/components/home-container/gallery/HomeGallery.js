@@ -5,7 +5,7 @@ import test from '../../../images/test.png'
 import { Grid, Container, Card, TextField, MenuItem } from '@material-ui/core'
 import './HomeGallery.css'
 
-function HomeGallery({ data, setSelectedProfile }) {
+function HomeGallery({ data, setSelectedProfile, contract }) {
   return (
     <div
       style={{
@@ -57,7 +57,7 @@ function HomeGallery({ data, setSelectedProfile }) {
             paddingBottom: '1rem',
           }}
         >
-          <ProfileList setSelectedProfile={setSelectedProfile} data={data} />
+          <ProfileList setSelectedProfile={setSelectedProfile} contract={contract} />
         </Card>
       </section>
     </div>
