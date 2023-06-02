@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import './ProfileList.css'
+import HouseIcon from '@mui/icons-material/House'
+import PersonPinIcon from '@mui/icons-material/PersonPin'
+import EventIcon from '@mui/icons-material/Event'
+import AssessmentIcon from '@mui/icons-material/Assessment'
 import {
   Typography,
   Button,
@@ -20,89 +24,117 @@ function ProfileList({ account, contract, setSelectedProfile }) {
   const history = useHistory()
   const [profiles, setProfiles] = useState([
     {
+      image: 'https://www.fs.usda.gov/Internet/FSE_MEDIA/fseprd1003938.jpg',
+      organization: 'National Park Service',
+      title: 'Cleanup at Fort Washington Park',
+      place: 'National Capital Parks-East, Maryland',
+      type: 'Event',
+      date: '12/10/2022',
+      difficulty: 'Average',
+      physical_address:
+        'National Capital Parks-East 13551 Fort Washington Rd Fort Washington, Maryland 20744',
+      contact: 'rebecca_george@partner.nps.gov',
+      phone: '889 909-88-88',
+      description:
+        'Join us to put in some hard work and beautify Fort Washington Parks landscape by cleaning up the shoreline. Meet us at the lighthouse parking area. Gloves, trash pickers, and bags will be provided. Contact Barbara Wadding for further details: barbara_wadding@nps.gov .',
+      skills: 'General Assistance',
+      background: 'No',
+      virtualOrSite: 'On-Site',
+    },
+    {
       image:
-        'https://www.hostinger.com/tutorials/wp-content/uploads/sites/2/2021/08/learn-coding-online-for-free.png',
-      className: 'Introduction to Programming',
-      professorName: 'Joe Boulet',
-      rating: '72',
+        'https://www.nps.gov/npgallery/GetAsset/a930d297-bb2c-4b55-b021-1e543e2f720c/proxy/hires',
+      organization: 'National Park Service',
+      title: 'Cleanup at Fort Washington Park',
+      place: 'National Capital Parks-East, Maryland',
+      type: 'Event',
+      date: '12/10/2022',
+      difficulty: 'Average',
+      physical_address:
+        'National Capital Parks-East 13551 Fort Washington Rd Fort Washington, Maryland 20744',
+      contact: 'rebecca_george@partner.nps.gov',
+      phone: '889 909-88-88',
+      description:
+        'Join us to put in some hard work and beautify Fort Washington Parks landscape by cleaning up the shoreline. Meet us at the lighthouse parking area. Gloves, trash pickers, and bags will be provided. Contact Barbara Wadding for further details: barbara_wadding@nps.gov .',
+      skills: 'General Assistance',
+      background: 'No',
+      virtualOrSite: 'On-Site',
+    },
+    {
+      image:
+        'https://npgallery.nps.gov/GetAsset/F7CCAE73-155D-4519-3EBC331967FA0595/original.jpg',
+      organization: 'National Park Service',
+      title: 'Cleanup at Fort Washington Park',
+      place: 'National Capital Parks-East, Maryland',
+      type: 'Event',
+      date: '12/10/2022',
+      difficulty: 'Average',
+      physical_address:
+        'National Capital Parks-East 13551 Fort Washington Rd Fort Washington, Maryland 20744',
+      contact: 'rebecca_george@partner.nps.gov',
+      phone: '889 909-88-88',
+      description:
+        'Join us to put in some hard work and beautify Fort Washington Parks landscape by cleaning up the shoreline. Meet us at the lighthouse parking area. Gloves, trash pickers, and bags will be provided. Contact Barbara Wadding for further details: barbara_wadding@nps.gov .',
+      skills: 'General Assistance',
+      background: 'No',
+      virtualOrSite: 'On-Site',
     },
 
     {
-      image:
-        'https://www.potential.com/wp-content/uploads/2020/11/Online-teaching.png',
-      className: 'Introduction Worldcoin',
-      professorName: 'Joe Boulet',
-      rating: '72',
+      image: 'https://www.fs.usda.gov/Internet/FSE_MEDIA/fseprd1003938.jpg',
+      organization: 'National Park Service',
+      title: 'Cleanup at Fort Washington Park',
+      place: 'National Capital Parks-East, Maryland',
+      type: 'Event',
+      date: '12/10/2022',
+      difficulty: 'Average',
+      physical_address:
+        'National Capital Parks-East 13551 Fort Washington Rd Fort Washington, Maryland 20744',
+      contact: 'rebecca_george@partner.nps.gov',
+      phone: '889 909-88-88',
+      description:
+        'Join us to put in some hard work and beautify Fort Washington Parks landscape by cleaning up the shoreline. Meet us at the lighthouse parking area. Gloves, trash pickers, and bags will be provided. Contact Barbara Wadding for further details: barbara_wadding@nps.gov .',
+      skills: 'General Assistance',
+      background: 'No',
+      virtualOrSite: 'On-Site',
     },
     {
       image:
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWpwOgnI7iNkeJbKTVXpNdmLEpbpD3l_SdqIQtxAdm43-rbzW-GRWbDdXiVyeNXi0S0G0&usqp=CAU',
-      className: 'Solidity Smart Contracts',
-      professorName: 'Joe Boulet',
-      rating: '72',
+        'https://www.nps.gov/npgallery/GetAsset/a930d297-bb2c-4b55-b021-1e543e2f720c/proxy/hires',
+      organization: 'National Park Service',
+      title: 'Cleanup at Fort Washington Park',
+      place: 'National Capital Parks-East, Maryland',
+      type: 'Event',
+      date: '12/10/2022',
+      difficulty: 'Average',
+      physical_address:
+        'National Capital Parks-East 13551 Fort Washington Rd Fort Washington, Maryland 20744',
+      contact: 'rebecca_george@partner.nps.gov',
+      phone: '889 909-88-88',
+      description:
+        'Join us to put in some hard work and beautify Fort Washington Parks landscape by cleaning up the shoreline. Meet us at the lighthouse parking area. Gloves, trash pickers, and bags will be provided. Contact Barbara Wadding for further details: barbara_wadding@nps.gov .',
+      skills: 'General Assistance',
+      background: 'No',
+      virtualOrSite: 'On-Site',
     },
     {
       image:
-        'https://poorvucenter.yale.edu/sites/default/files/images/TeachingOnlineatYale%282%29.png',
-      className: 'Introduction Worldcoin',
-      professorName: 'Joe Boulet',
-      rating: '72',
-    },
-    {
-      image:
-        ' https://plus.unsplash.com/premium_photo-1661685456957-3f93db2916ea?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1932&q=80',
-      className: 'Solidity Smart Contracts',
-      professorName: 'Joe Boulet',
-      rating: '72',
-    },
-    {
-      image:
-        'https://asynchronous-art-inc-res.cloudinary.com/image/upload/w_400,f_auto,c_thumb/v1645603121/blueprints/61fb3e9ccf78577707f0e686.png',
-      className: 'Introduction Worldcoin',
-      professorName: 'Joe Boulet',
-      rating: '72',
-    },
-    {
-      image:
-        'https://asynchronous-art-inc-res.cloudinary.com/image/upload/w_400,f_auto,c_thumb/v1665037001/0xd9393c16f1aaf829a4e2358d44ed939514c0c3cd/633c8e696089f1d077c1b97d/blueprintCover/scarelords_title_xulpm7.png',
-      className: 'Solidity Smart Contracts',
-      professorName: 'Joe Boulet',
-      rating: '72',
-    },
-    {
-      image:
-        'https://asynchronous-art-inc-res.cloudinary.com/image/upload/w_400,f_auto,c_thumb/v1645603121/blueprints/61fb3e9ccf78577707f0e686.png',
-      className: 'Introduction Worldcoin',
-      professorName: 'Joe Boulet',
-      rating: '72',
-    },
-    {
-      image:
-        'https://asynchronous-art-inc-res.cloudinary.com/image/upload/w_400,f_auto,c_thumb/v1665037001/0xd9393c16f1aaf829a4e2358d44ed939514c0c3cd/633c8e696089f1d077c1b97d/blueprintCover/scarelords_title_xulpm7.png',
-      className: 'Solidity Smart Contracts',
-      professorName: 'Joe Boulet',
-      rating: '72',
-    },
-    {
-      image:
-        'https://asynchronous-art-inc-res.cloudinary.com/image/upload/w_400,f_auto,c_thumb/v1645603121/blueprints/61fb3e9ccf78577707f0e686.png',
-      className: 'Introduction Worldcoin',
-      professorName: 'Joe Boulet',
-      rating: '72',
-    },
-    {
-      image:
-        'https://asynchronous-art-inc-res.cloudinary.com/image/upload/w_400,f_auto,c_thumb/v1665037001/0xd9393c16f1aaf829a4e2358d44ed939514c0c3cd/633c8e696089f1d077c1b97d/blueprintCover/scarelords_title_xulpm7.png',
-      className: 'Solidity Smart Contracts',
-      professorName: 'Joe Boulet',
-      rating: '72',
-    },
-    {
-      image:
-        'https://asynchronous-art-inc-res.cloudinary.com/image/upload/w_400,f_auto,c_thumb/v1645603121/blueprints/61fb3e9ccf78577707f0e686.png',
-      className: 'Introduction Worldcoin',
-      professorName: 'Joe Boulet',
-      rating: '72',
+        'https://npgallery.nps.gov/GetAsset/F7CCAE73-155D-4519-3EBC331967FA0595/original.jpg',
+      organization: 'National Park Service',
+      title: 'Cleanup at Fort Washington Park',
+      place: 'National Capital Parks-East, Maryland',
+      type: 'Event',
+      date: '12/10/2022',
+      difficulty: 'Average',
+      physical_address:
+        'National Capital Parks-East 13551 Fort Washington Rd Fort Washington, Maryland 20744',
+      contact: 'rebecca_george@partner.nps.gov',
+      phone: '889 909-88-88',
+      description:
+        'Join us to put in some hard work and beautify Fort Washington Parks landscape by cleaning up the shoreline. Meet us at the lighthouse parking area. Gloves, trash pickers, and bags will be provided. Contact Barbara Wadding for further details: barbara_wadding@nps.gov .',
+      skills: 'General Assistance',
+      background: 'No',
+      virtualOrSite: 'On-Site',
     },
   ])
 
@@ -121,6 +153,10 @@ function ProfileList({ account, contract, setSelectedProfile }) {
   const getAllClasses = async () => {
     const temp = []
     const res = await contract.getAllGroups()
+    console.log(
+      '🚀 ~ file: ProfileList.js ~ line 124 ~ getAllClasses ~ res',
+      res,
+    )
 
     for (let i = 0; i < res.length; i++) {
       let obj = {}
@@ -132,6 +168,10 @@ function ProfileList({ account, contract, setSelectedProfile }) {
 
       const ipfs_cid = nftStorageURL.substring(33, 92)
       let getNFTStorageData = await fetch(nftStorageURL)
+      console.log(
+        '🚀 ~ file: ProfileList.js ~ line 139 ~ getAllClasses ~ getNFTStorageData',
+        getNFTStorageData,
+      )
       let post = await getNFTStorageData.json()
       const data = JSON.parse(post.description)
       obj.fundraiserId = fundraiserId
@@ -171,6 +211,75 @@ function ProfileList({ account, contract, setSelectedProfile }) {
 
   return (
     <div style={{ minHeight: '60vh', borderRadius: '24px' }}>
+      <p>The Best Volunteer Opportunities in New York | VolunteerMatch</p>
+
+      <Grid container spacing={24}>
+        {profiles.length ? (
+          profiles.map((profile, index) => (
+            <Grid
+              item
+              xs={12}
+              sm={6}
+              md={4}
+              lg={3}
+              spacing={1}
+              className="swap-card"
+              key={index}
+            >
+              <Card sx={{ maxWidth: 200 }} onClick={() => details(profile)}>
+                <CardMedia
+                  component="img"
+                  height="194"
+                  image={profile.image}
+                  alt="Profile"
+                />
+                <CardContent style={{ padding: '10px' }}>
+                  <div
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      paddingBottom: '5px',
+                    }}
+                  >
+                    <p className="gallery-name"> {profile.organization}</p>
+                  </div>
+                  <p className="gallery-professor">{profile.title}</p>
+                  <br />
+                  <hr style={{ border: '1px solid #ccc' }} />
+                  <br />
+
+                  <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <HouseIcon className="icons-list" />
+                    <p className="gallery-professor">{profile.title}</p>
+                  </div>
+
+                  <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <PersonPinIcon className="icons-list" />
+                    <p className="gallery-professor">{profile.type}</p>
+                  </div>
+
+                  <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <EventIcon className="icons-list" />
+                    <p className="gallery-professor">{profile.date}</p>
+                  </div>
+
+                  <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <AssessmentIcon className="icons-list" />
+                    <p className="gallery-professor">
+                      Difficulty: {profile.difficulty}
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+            </Grid>
+          ))
+        ) : (
+          <h2>No Professors Yet...</h2>
+        )}
+      </Grid>
+
+      {/* Volunteer matching */}
+
       {contract ? (
         ''
       ) : (
